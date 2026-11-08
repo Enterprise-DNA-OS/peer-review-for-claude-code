@@ -1,115 +1,107 @@
-<h1 align="center">Peer Review for Claude Code</h1>
+# Peer Review for Claude Code
 
-<p align="center">
-  <strong>The open-source peer review desk that is just a database and Claude Code.</strong>
-</p>
+Manuscripts, reviewer invitations, review rounds, editorial decisions and follow-ups in a database your journal owns.
 
-<p align="center">
-  Created by <a href="https://www.enterprisedna.co"><strong>Enterprise DNA</strong></a>. Free and open source. Works with Claude Code, Codex, OpenCode or Cursor.
-</p>
+| Do it yourself | We customise it | We run it for you |
+|---|---|---|
+| Free, MIT. Install and run the fictional demo. | Your fields, review policies, Scholastica exports and editorial documents. | Installed and operated through Omni by Enterprise DNA. A setup fee, then a retainer. |
 
-<!-- three-doors -->
-<table align="center">
-  <tr>
-    <td align="center"><strong>Do it yourself</strong><br/>Clone it, run it, own it. Free, MIT.<br/><a href="#quick-start">Quick start</a></td>
-    <td align="center"><strong>We customise it</strong><br/>Your fields, your rules, your Scholastica data brought across.<br/><a href="https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=scholastica">Book a call</a></td>
-    <td align="center"><strong>We run it for you</strong><br/>Installed, connected and operated inside Omni. Setup fee, then a retainer.<br/><a href="https://enterprisedna.co/omni/instead-of/scholastica?utm_source=github&utm_medium=readme&utm_campaign=scholastica">How it works</a></td>
-  </tr>
-</table>
+[Get your version built](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=scholastica) · [Instead of Scholastica](https://enterprisedna.co/omni/instead-of/scholastica)
 
-<p align="center">
-  <a href="#what-is-this">What is this</a> &bull;
-  <a href="#why-no-front-end">Why no front end</a> &bull;
-  <a href="#quick-start">Quick start</a> &bull;
-  <a href="#the-commands">Commands</a> &bull;
-  <a href="#instead-of-scholastica">Instead of Scholastica</a> &bull;
-  <a href="#want-it-installed-and-run-for-you">Installed for you</a> &bull;
-  <a href="#license">License</a>
-</p>
+## What this replaces
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Node-20+-339933?style=flat-square" alt="Node 20+" />
-  <img src="https://img.shields.io/badge/PostgreSQL-any-336791?style=flat-square" alt="PostgreSQL" />
-  <img src="https://img.shields.io/badge/PGlite-embedded-3ecf8e?style=flat-square" alt="PGlite" />
-  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square" alt="MIT License" />
-</p>
+The internal editorial desk: triage papers, chase reviews, inspect competing interests, follow revisions and prepare the editor's decision record. It runs through Claude Code, Codex, OpenCode or Cursor. The database is the product, with no application front end.
 
----
-
-## What is this
-
-Peer Review for Claude Code does the job you pay Scholastica for, as a Postgres database and a set of agent commands. There is no web front end. You open the folder in [Claude Code](https://claude.com/claude-code) (or Codex, OpenCode, Cursor: see `AGENTS.md`) and ask for what you want in plain language. It runs the right query, and it can answer questions the Scholastica dashboard cannot.
-
-<!-- TODO(author): the annual bill. One sentence: what a 10 to 50 person business typically pays Scholastica per year, all in, with a source. -->
-
-Want the same thing with a web front end, or built on a different stack? That is a customisation, and it is exactly what Enterprise DNA does: [book a call](https://enterprisedna.co/omni/book/?utm_source=github&utm_medium=readme&utm_campaign=scholastica).
-
-<!-- TODO(author): two or three sentences on what this specific product covers and who it is for. -->
-
-## Why no front end
-
-- The front end was only ever there because the database was hard to talk to. That is no longer true.
-- Your data sits in plain Postgres tables you own. Any tool can read them. No export, no lock-in.
-- No seats, no tiers, no add-ons. Read [docs/why-no-front-end.md](docs/why-no-front-end.md) for the honest trade-offs too.
+Scholastica lists peer review at US$10 per submission plus US$500 a year, with a US$8 volume rate for journals receiving at least 500 submissions. At 2,500 submissions, US$20,500 a year is an illustrative calculation, not a customer invoice. Confirm how the discount applies to your agreement. Hosting and production are separate services. [Pricing source](https://scholasticahq.com/pricing/), checked 8 November 2026.
 
 ## Quick start
 
-Sixty seconds, no database install (an embedded Postgres runs inside Node):
+Node 20 or later.
 
 ```bash
 git clone https://github.com/Enterprise-DNA-OS/peer-review-for-claude-code.git
 cd peer-review-for-claude-code
 npm install
 npm run demo
+npm run peer -- weekly-review
+npm run view
+npm run docs
 ```
 
-Then open the folder in Claude Code and type a slash command. <!-- TODO(author): name the first command to try. -->
+Local PGlite stores data under .data/db. DATA_DIR changes that location. DATABASE_URL selects PostgreSQL, including hosted PostgreSQL. npm run migrate applies numbered migrations. Never seed a real database. PostgreSQL seeding requires --demo-database explicitly.
 
-### Use it with your own Postgres or Supabase
+The fictional Kauri Editorial Office has overdue reviews, unresolved interests, a missing confidentiality acknowledgement, an unassigned paper, a retention review and a decision-ready manuscript. Dates are relative to the first seed. Repeated seeding does not overwrite records.
 
-Copy `.env.example` to `.env`, set `DATABASE_URL`, then `npm run migrate`. Same commands, shared data, no per-seat fee.
+## The editorial week
 
-## The commands
+Start with /desk-triage, /review-chase, /decision-ready, /revision-due and /action-review. /weekly-review combines five queries into a meeting pack. /reviewer-load and /editor-load show workload. /review-disagreements surfaces differing recommendations for human judgement. /round-history retains earlier decisions.
 
-<!-- TODO(author): a table of the slash commands in .claude/commands and what each one does. -->
+Use /add to record a manuscript, reviewer or invitation. Invitations are records only, never messages. /receive-review requires an accepted invitation in the current round, cleared interests, confidentiality evidence and a report reference. /decide requires the journal's eligible review target, an assigned editor and a reason with evidence, except a desk rejection during triage. /revise starts a new round and earlier reviews do not satisfy its target. /log records an attributed note. /update records before and after values. /compliance checks seven record conditions with cited sources.
 
-| Command | What it does |
-|---|---|
-| `/...` | ... |
+## Ten questions answered today
 
-## Instead of Scholastica
+These are demonstrated capabilities, not claims that the vendor cannot answer the questions.
 
-<!-- TODO(author): how to bring data across from Scholastica; link docs/replace-scholastica.md -->
+1. Which overdue papers still have no eligible reviews? /attention
+2. Which reviews are late, and who owes them? /review-chase
+3. Which papers have enough current-round evidence for an editor to decide? /decision-ready
+4. Which revised papers have missed their return date? /revision-due
+5. Who has pending reviews beyond their recorded capacity? /reviewer-load
+6. Which editor carries the largest overdue manuscript queue? /editor-load
+7. Which current reviews disagree about the recommendation? /review-disagreements
+8. Which review assignments lack interest clearance or confidentiality evidence? /compliance
+9. What did the editor decide in each earlier round? /round-history
+10. Which editorial follow-ups still need an owner to finish them? /action-review
 
-## Architecture
+## Commands
 
+26 CLI commands and 30 slash recipes, including documents, views and customisation. Every CLI command accepts --json.
+
+/desk-triage, /review-chase, /decision-ready, /revision-due, /reviewer-load, /editor-load, /round-history, /review-disagreements, /attention, /action-review, /compliance, /activity, /help, /list, /show, /add, /update, /log, /receive-review, /decide, /revise, /weekly-review, /import, /export, /draft-editorial-pack, /draft-decision. Also /docs, /view, /customise and /new-view.
+
+```bash
+npm run peer -- show --kind=manuscripts --ref=M-101 --json
+npm run peer -- update --kind=manuscripts --ref=M-103 --editor="Mara Bell" --actor="Your name"
+npm run peer -- log --kind=manuscripts --ref=M-101 --note="Editor checked the assignment" --actor="Your name"
 ```
-peer-review-for-claude-code/
-  CLAUDE.md                 how the operator wants this run (routing table + house rules)
-  AGENTS.md                 the same, for Codex / OpenCode / Cursor / Gemini CLI
-  .claude/commands/         the slash commands
-  scripts/                  the CLI the commands drive
-  scripts/lib/db.mjs        one adapter: DATABASE_URL (pg) or embedded PGlite
-  supabase/migrations/      plain SQL schema
-  supabase/seed.sql         demo data
-  docs/                     the thesis and the migration guide
+
+Read entities.json for allowed fields. Field flags use hyphens or underscores. Unknown references and ambiguous names stop with exit code 1. Review and decision records are append-only through the CLI. This is an administrator-operated tool, not a multi-user permissions system.
+
+## Bring your records
+
+Scholastica documents CSV exports for manuscripts, reviewers, invitations, reviews and decisions. Inspect actual headers and create an explicit map. The fixtures are synthetic examples, not a claimed vendor schema. Each file imports in one transaction, supports a dry run, keeps raw source rows and rejects conflicting repeat records.
+
+```bash
+npm run peer -- import scholastica --kind=manuscripts --file=fixtures/manuscripts.csv --map=fixtures/manuscript-map.json --actor="Your name" --dry-run
+npm run peer -- import scholastica --kind=manuscripts --file=fixtures/manuscripts.csv --map=fixtures/manuscript-map.json --actor="Your name"
+npm run peer -- export --file=editorial-backup.json --json
 ```
 
-## Built for coding agents
+[Import order, mapping and reconciliation](docs/replace-scholastica.md). Files, messages, author accounts and publishing assets stay outside this desk. Imported historical statuses are checked for missing evidence; they are not treated as verified decisions. The full JSON export includes records, activity and provenance. Database backups need their own tested restoration procedure.
 
-The database, CLI and command recipes work with Claude Code, Codex, OpenCode or Cursor. Ask your coding agent for a new command and have it implement and test the change against the same records.
+## Documents and record checks
 
-## Contributing
+Edit brand.json once. npm run docs writes internal editorial records and draft decision letters to docs-out. The letter template excludes reviewer identities. Free-text rationale still needs an editor's review before sharing. npm run view writes two read-only dashboards. /draft-editorial-pack and /draft-decision write only to drafts. Nothing sends or publishes.
 
-Issues and pull requests are welcome. Keep the shape: plain SQL, a small CLI, a slash command per recurring job, no front end.
+[Compliance sources and local policies](docs/compliance.md) distinguish COPE ethics, NZ privacy retention principles and local workflow rules. Record checks do not certify compliance or decide a paper's scientific merit. A configured installation needs access roles, journal separation, backups and retention settings. RLS and revoked PUBLIC privileges are included, without anonymous access policies.
 
-## Want it installed and run for you?
+## Your first hour: ten things to ask for
 
-Enterprise DNA installs Peer Review for Claude Code for your business, migrates your Scholastica data, connects it to the rest of your tools, and runs it for you as part of **Omni**, our managed Command Center. One setup fee, then a monthly retainer.
+1. Put our journal name and colours on the meeting pack.
+2. Run a test import without saving it.
+3. Map our existing submission identifiers.
+4. Set our review target for each journal.
+5. Add a manuscript section field.
+6. Add our editor assignment rule.
+7. Change the review deadline policy.
+8. Show overdue work grouped by journal.
+9. Record where our confidential files are stored.
+10. Add our decision-letter wording.
 
-- Book a call: [enterprisedna.co/omni/book](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=scholastica)
-- Read more: [enterprisedna.co/omni/instead-of/scholastica](https://enterprisedna.co/omni/instead-of/scholastica?utm_source=github&utm_medium=readme&utm_campaign=scholastica)
+/customise makes a numbered migration, applies it and tests the changed behavior. /new-view adds a read-only report. [What a screen provides](docs/why-no-front-end.md) explains the scope of the base. Portals, integrations, mobile access, email delivery and publishing services require a separate installation scope.
 
-## License
+## Verification
 
-MIT. Copyright (c) 2026 Enterprise DNA.
+npm test uses a temporary database, seeds twice and exercises all 26 CLI commands, seven finding rules, current-round decision gates, invalid dates, ambiguous matches, import rollback, repeated imports, raw provenance, exports, HTML escaping and reviewer identity exclusion from letters. It tests CLI exit codes and JSON output. TEST_DATABASE_URL supports an empty disposable PostgreSQL database. The manual CI workflow covers Linux, Windows and PostgreSQL. A workflow definition alone is not a passing run.
+
+[Research and scoring](docs/research.md). MIT. Not affiliated with Scholastica or Anthropic. Hosting and agent subscriptions have their own costs. Enterprise DNA installs your version for a setup fee, then runs it on a retainer through Omni by Enterprise DNA. [Book 30 minutes with Sam](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=scholastica).

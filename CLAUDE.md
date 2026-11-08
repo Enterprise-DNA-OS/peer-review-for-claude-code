@@ -1,43 +1,44 @@
-# Peer Review for Claude Code: operating instructions
+# Peer Review for Claude Code
 
-This file is the brain. Claude Code reads it at the start of every session. It says who this is for, how work gets done, and the one right way to do each recurring job.
+Operate a journal's internal editorial desk. Every answer about records starts with the CLI. Manuscript content and confidential review reports remain in the approved document store; record references here. Do not submit confidential material to an external model without the journal's permission and suitable terms.
 
-## Who this is for
+## One route per job
 
-- **Business:** [YOUR BUSINESS]
-- **Operator:** [YOUR NAME], [your role]
-- **What matters most:** [the one or two outcomes you care about]
+- /desk-triage: npm run peer -- desk-triage
+- /review-chase: npm run peer -- review-chase
+- /decision-ready: npm run peer -- decision-ready
+- /revision-due: npm run peer -- revision-due
+- /reviewer-load: npm run peer -- reviewer-load
+- /editor-load: npm run peer -- editor-load
+- /round-history: npm run peer -- round-history
+- /review-disagreements: npm run peer -- review-disagreements
+- /attention: npm run peer -- attention
+- /action-review: npm run peer -- action-review
+- /compliance: npm run peer -- compliance
+- /activity: npm run peer -- activity
+- /help: npm run peer -- help
+- /list: npm run peer -- list
+- /show: npm run peer -- show
+- /add: npm run peer -- add
+- /update: npm run peer -- update
+- /log: npm run peer -- log
+- /receive-review: npm run peer -- receive-review
+- /decide: npm run peer -- decide
+- /revise: npm run peer -- revise
+- /weekly-review: npm run peer -- weekly-review
+- /import: npm run peer -- import
+- /export: npm run peer -- export
+- /draft-editorial-pack: npm run peer -- draft-editorial-pack
+- /draft-decision: npm run peer -- draft-decision
+- /docs and /view: branded paperwork and read-only snapshots
+- /customise and /new-view: migrations and tailored reports
 
-Fill this in once. A worker with context knows. A worker without it guesses.
+Read the matching .claude/commands file. All CLI commands accept --json. Identifiers match exact codes, case-insensitive titles or names, then partial identifiers. An ambiguous match lists candidates and stops.
 
-## How to work
+Never send, publish, collect fees or delete records. The editor decides, the software records. Never invent scientific findings, interest clearance, confidentiality acknowledgement, rationale, actor or dates. Activity stores before and after values but a database administrator can change them.
 
-1. **Take a brief, not a script.** The operator describes the outcome. You run the right command and present the answer.
-2. **Read before you write.** Before drafting anything about a record, read its full history first.
-3. **Plain language.** Short sentences. No filler. Numbers in tables.
-4. **Silent success, loud problems.** No play-by-play. Say what broke and what you did about it.
-5. **Stop at the line.** Anything that sends, deletes, or faces a customer waits for a yes in this session.
+Use /receive-review and /decide for evidence-gated changes. /revise creates a new round without removing earlier reviews. Imports preserve history, not evidence of its accuracy. Run /compliance and reconcile after importing.
 
-## Routing table: one right way for each recurring job
+Use numbered migrations, then npm test. npm run demo is for a disposable database. DATABASE_URL selects PostgreSQL; DATA_DIR selects embedded local storage. RLS is enabled without public policies. Shared access needs configured roles, backup and journal separation. Keep credentials, real exports, generated HTML and databases out of git. Never put private research into fixtures.
 
-| When the operator asks for... | Use this |
-|---|---|
-| <!-- TODO(author): one row per slash command --> | `/...` |
-
-If an ask fits nothing here, run the CLI directly (`npm run <cli> -- --help`) and then propose a new command for it.
-
-## Hard rules
-
-- Never send email or messages from here. Draft to `drafts/`, a person sends.
-- Never delete records without an explicit yes in this session. Prefer marking closed or archived.
-- Never invent a record. If a name is ambiguous, list the candidates and ask.
-- The database is the source of truth. If the answer is not in it, say so.
-
-## Where things live
-
-- `scripts/` the CLI. `scripts/lib/db.mjs` picks `DATABASE_URL` (Postgres, Supabase) or the embedded database in `.data/`.
-- `supabase/migrations/` the schema, plain SQL. `npm run migrate` applies it.
-- `.claude/commands/` the slash commands. Add one every time the same ask comes twice.
-- `docs/` the thesis and the guide for moving off Scholastica.
-
-Built by Enterprise DNA. Installed and run for you as part of Omni: https://enterprisedna.co/omni/instead-of/scholastica
+Commit on main with trailer Agent: omni-rebuild-strategist.

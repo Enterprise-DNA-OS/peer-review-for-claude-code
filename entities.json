@@ -1,0 +1,57 @@
+{
+  "journals": {
+    "name": "text",
+    "review_target": "integer",
+    "review_days": "integer"
+  },
+  "manuscripts": {
+    "title": "text",
+    "journal_id": "journals",
+    "editor": "text",
+    "submitted_on": "date",
+    "due_on": "date",
+    "status": "text",
+    "round": "integer",
+    "author_ref": "text",
+    "file_ref": "text",
+    "retention_on": "date"
+  },
+  "reviewers": {
+    "name": "text",
+    "specialty": "text",
+    "capacity": "integer"
+  },
+  "invitations": {
+    "manuscript_id": "manuscripts",
+    "reviewer_id": "reviewers",
+    "round": "integer",
+    "invited_on": "date",
+    "due_on": "date",
+    "status": "text",
+    "conflict_status": "text",
+    "confidentiality_on": "date"
+  },
+  "reviews": {
+    "invitation_id": "invitations",
+    "received_on": "date",
+    "recommendation": "text",
+    "evidence_ref": "text"
+  },
+  "decisions": {
+    "manuscript_id": "manuscripts",
+    "round": "integer",
+    "decided_on": "date",
+    "outcome": "text",
+    "editor": "text",
+    "rationale": "text",
+    "evidence_ref": "text"
+  },
+  "actions": {
+    "manuscript_id": "manuscripts",
+    "title": "text",
+    "owner": "text",
+    "due_on": "date",
+    "status": "text",
+    "evidence_ref": "text"
+  }
+}

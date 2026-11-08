@@ -1,0 +1,14 @@
+{
+  "columns": {
+    "code": "Submission ID",
+    "title": "Article title",
+    "editor": "Editor",
+    "submitted_on": "Submitted",
+    "due_on": "Deadline",
+    "status": "Status",
+    "round": "Round"
+  },
+  "defaults": {
+    "journal_id": "J-DEMO"
+  }
+}

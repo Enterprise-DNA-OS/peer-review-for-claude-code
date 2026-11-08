@@ -1,11 +1,42 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
-    "file": "name",
+    "name": "editorial-record",
+    "title": "Internal editorial record",
+    "for_each": "select id,code from manuscripts order by code",
+    "file": "code",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Manuscript",
+        "layout": "record",
+        "sql": "select code,title,editor,status,round,file_ref from manuscripts where id=$1"
+      },
+      {
+        "title": "Decisions",
+        "sql": "select round,outcome,decided_on,editor,rationale,evidence_ref from decisions where manuscript_id=$1 order by round"
+      },
+      {
+        "title": "Review evidence (internal only)",
+        "sql": "select i.round,r.name as reviewer,i.conflict_status,i.confidentiality_on,v.recommendation,v.evidence_ref from invitations i join reviewers r on r.id=i.reviewer_id left join reviews v on v.invitation_id=i.id where i.manuscript_id=$1 order by i.round,r.name"
+      }
+    ]
+  },
+  {
+    "name": "decision-letter",
+    "title": "Draft decision letter",
+    "for_each": "select id,code from manuscripts where exists(select 1 from decisions where manuscript_id=manuscripts.id) order by code",
+    "file": "code",
+    "sections": [
+      {
+        "title": "Manuscript",
+        "layout": "record",
+        "sql": "select code,title from manuscripts where id=$1"
+      },
+      {
+        "title": "Latest recorded decision",
+        "layout": "record",
+        "sql": "select outcome,decided_on,editor,rationale from decisions where manuscript_id=$1 order by round desc limit 1",
+        "note": "Draft only. Editor checks author-facing wording before sending. Reviewer identities are excluded."
+      }
     ]
   }
 ]

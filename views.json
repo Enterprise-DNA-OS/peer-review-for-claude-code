@@ -1,13 +1,29 @@
 [
   {
-    "name": "week",
-    "title": "This week",
-    "subtitle": "Peer Review for Claude Code: what needs attention, rendered by npm run view",
+    "name": "editorial-week",
+    "title": "Editorial week",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Active manuscripts",
+        "sql": "select code,title,editor,status,round,overdue_days,eligible_reviews,review_target from editorial_queue where status in ('triage','review','revision') order by overdue_days desc,code"
+      },
+      {
+        "title": "Review chase",
+        "sql": "select manuscript,reviewer,status,due_on,overdue_days from review_chase order by overdue_days desc"
+      },
+      {
+        "title": "Evidence checks",
+        "sql": "select * from compliance_findings order by rule,record"
+      }
+    ]
+  },
+  {
+    "name": "reviewer-workload",
+    "title": "Reviewer workload",
+    "sections": [
+      {
+        "title": "Assignments",
+        "sql": "select code,name,specialty,capacity,active_reviews,overdue_reviews,over_capacity from reviewer_load order by active_reviews desc,code"
       }
     ]
   }

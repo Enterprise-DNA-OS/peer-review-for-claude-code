@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Review deadlines",
+    "ask": "Which reviews need chasing this week?",
+    "command": "npm run peer -- review-chase",
+    "output": "code | manuscript | reviewer | status | due_on | overdue_days\n--- | --- | --- | --- | --- | ---\nI-102 | M-101 | Asha Patel | accepted | 2026-10-30 | 9\nI-101 | M-101 | Lee Morgan | accepted | 2026-11-01 | 7"
+  },
+  {
+    "title": "Ready for a decision",
+    "ask": "Which papers have enough current reviews for an editor to decide?",
+    "command": "npm run peer -- decision-ready",
+    "output": "code | title | editor | round | eligible_reviews | review_target\n--- | --- | --- | --- | --- | ---\nM-102 | River sampling methods | Mara Bell | 1 | 2 | 2"
+  },
+  {
+    "title": "Editorial evidence",
+    "ask": "Which assignments are missing confidentiality or interest checks?",
+    "command": "npm run peer -- compliance",
+    "output": "rule | record | finding\n--- | --- | ---\nCONFIDENTIAL | I-101 | Record reviewer confidentiality acknowledgement\nCONFLICT | I-101 | Review competing interests before using this review\nCONFLICT | I-102 | Review competing interests before using this review\nEDITOR | M-103 | Assign the responsible editor\nOVERDUE | I-101 | Review the overdue invitation or review deadline\nOVERDUE | I-102 | Review the overdue invitation or review deadline\nRETENTION | M-103 | Review whether retaining the personal information is still necessary"
+  }
+]

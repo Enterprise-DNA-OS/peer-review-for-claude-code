@@ -1,0 +1,42 @@
+[
+  [
+    "Which overdue papers still have no eligible reviews?",
+    "attention"
+  ],
+  [
+    "Which reviews are late, and who owes them?",
+    "review-chase"
+  ],
+  [
+    "Which papers have enough current-round evidence for an editor to decide?",
+    "decision-ready"
+  ],
+  [
+    "Which revised papers have missed their return date?",
+    "revision-due"
+  ],
+  [
+    "Who has pending reviews beyond their recorded capacity?",
+    "reviewer-load"
+  ],
+  [
+    "Which editor carries the largest overdue manuscript queue?",
+    "editor-load"
+  ],
+  [
+    "Which current reviews disagree about the recommendation?",
+    "review-disagreements"
+  ],
+  [
+    "Which review assignments lack interest clearance or confidentiality evidence?",
+    "compliance"
+  ],
+  [
+    "What did the editor decide in each earlier round?",
+    "round-history"
+  ],
+  [
+    "Which editorial follow-ups still need an owner to finish them?",
+    "action-review"
+  ]
+]
