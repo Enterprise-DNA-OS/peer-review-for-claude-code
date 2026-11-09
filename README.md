@@ -6,7 +6,7 @@ Manuscripts, reviewer invitations, review rounds, editorial decisions and follow
 |---|---|---|
 | Free, MIT. Install and run the fictional demo. | Your fields, review policies, Scholastica exports and editorial documents. | Installed and operated through Omni by Enterprise DNA. A setup fee, then a retainer. |
 
-[Get your version built](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=scholastica) · [Instead of Scholastica](https://enterprisedna.co/omni/instead-of/scholastica)
+[Get your version built](https://enterprisedna.co/omni/book/?offer=replace-software&utm_source=github&utm_medium=readme&utm_campaign=scholastica) · [Instead of Scholastica](https://enterprisedna.co/omni/instead-of/scholastica?utm_source=github&utm_medium=readme&utm_campaign=scholastica)
 
 ## What this replaces
 
